@@ -4,13 +4,13 @@ SHEETY_ENDPOINT = 'https://api.sheety.co/2b489a48a3ecd79f3d73a53a182b410f/flight
 
 class DataManager():
 
-
     def __init__(self):
         self.sheets_data = {}
 
     def sheety_get(self):
         response = requests.get(url=SHEETY_ENDPOINT)
-        self.sheets_data = response.json()
+        data = response.json()
+        self.sheets_data = data['prices']
         return self.sheets_data
 
     def update_destination_code(self):
@@ -22,4 +22,5 @@ class DataManager():
                 }
             }
 
-            response = requests.get(url=f"{SHEETY_ENDPOINT}/city['id']", json=new_data)
+            response = requests.put(url=f"{SHEETY_ENDPOINT}/{city['id']}", json=new_data)
+            
