@@ -21,8 +21,8 @@ class FlightSearch():
         query = {
             'fly_from': origin_code,
             'fly_to': destination_code,
-            'date_from': departure_date.strftime('%d/-%m/-%Y'),
-            'date_to': return_date.strftime('%d/-%m/-%Y'),
+            'date_from': departure_date.strftime('%d/%m/%Y'),
+            'date_to': return_date.strftime('%d/%m/%Y'),
             'nights_in_dst_from': 7,
             'nights_in_dst_to': 28,
             'flight_type': 'round',
