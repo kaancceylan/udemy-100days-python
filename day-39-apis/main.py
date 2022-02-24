@@ -2,9 +2,11 @@
 from data_manager import DataManager
 from datetime import datetime, timedelta
 from flight_search import FlightSearch
+from notification_manager import NotificationManager
 
 flightsearch = FlightSearch()
 datamanager = DataManager()
+notificationmanager = NotificationManager()
 sheety_data = datamanager.sheety_get()
 
 #Check if the iatacode is empty in the sheets_data
@@ -28,3 +30,9 @@ for destination in sheety_data:
         departure_date = departure_date,
         return_date = return_date,
     )
+
+    if flights is not None and flights.price < destination['Lowest Price']:
+        notificationmanager.send_notification(
+            message = f"Low price alert! Only £{flights.price} to fly from {flights.origin_city} \
+                        to {flights.dest_city}, from {flights.to_date} to {flights.return_date}"
+        )
