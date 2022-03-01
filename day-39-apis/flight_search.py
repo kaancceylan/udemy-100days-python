@@ -1,9 +1,9 @@
+import os
 import requests
 from flight_data import FlightData
-from datetime import datetime, timedelta
 
-KIWI_API_KEY = 'xns5e7gkErgl6GHBXiJVAmvrR8ulmnp_'
-KIWI_ENDPOINT = 'https://tequila-api.kiwi.com'
+KIWI_API_KEY = os.environ.get(KIWI_API_KEY)
+KIWI_ENDPOINT = os.environ.get(KIWI_ENDPOINT)
 
 
 class FlightSearch():
