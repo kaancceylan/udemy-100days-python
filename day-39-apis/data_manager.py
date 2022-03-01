@@ -1,6 +1,7 @@
 import requests
+import os
 
-SHEETY_ENDPOINT = 'https://api.sheety.co/2b489a48a3ecd79f3d73a53a182b410f/flightDeals/prices'
+SHEETY_ENDPOINT = os.environ.get(SHEETY_ENDPOINT)
 
 class DataManager():
 
