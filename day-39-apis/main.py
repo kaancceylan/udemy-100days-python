@@ -30,9 +30,13 @@ for destination in sheety_data:
         departure_date = departure_date,
         return_date = return_date,
     )
+    if flights is None:
+        continue
 
-    if flights is not None and flights.price < destination['Lowest Price']:
+    if flights.price < destination['lowestPrice']:
         notificationmanager.send_notification(
             message = f"Low price alert! Only £{flights.price} to fly from {flights.origin_city} \
                         to {flights.dest_city}, from {flights.to_date} to {flights.return_date}"
         )
+        if flights.max_stopovers > 0:
+            notificationmanager.send_notification.message += f"\nFlight has {flights.max_stopovers} stopovers"
