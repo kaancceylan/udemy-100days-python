@@ -9,6 +9,16 @@ datamanager = DataManager()
 notificationmanager = NotificationManager()
 sheety_data = datamanager.sheety_get()
 
+#Construct link from the flight data
+city_to = flightsearch.data['data'][0]['cityTo'].lower()
+country_to = flightsearch.data['data'][0]['countryTo']['code'].lower()
+city_from = flightsearch.data['data'][0]['cityFrom'].lower()
+country_from = flightsearch.data['data'][0]['countryFrom']['code'].lower()
+price = flightsearch.data['data'][0]['price']
+
+#Can make it more dynamic later on, doesn't work when added return date restrictions etc.
+deep_link = f'www.kiwi.com/deep?destination={city_to}_{country_to}&origin={city_from}_{country_from}&return=anytime'
+
 #Check if the iatacode is empty in the sheets_data
 if sheety_data[0]["iataCode"] == "":
     for row in sheety_data: #parse through the sheets_data
@@ -35,8 +45,7 @@ for destination in sheety_data:
 
     if flights.price < destination['lowestPrice']:
         notificationmanager.send_notification(
-            message = f"Low price alert! Only £{flights.price} to fly from {flights.origin_city} \
-                        to {flights.dest_city}, from {flights.to_date} to {flights.return_date}"
+            message = f"Low Flight Price Alert! ✈️ From {city_from} to {city_to} for only {price}€! See Flights: {deep_link}"
         )
         if flights.max_stopovers > 0:
             notificationmanager.send_notification.message += f"\nFlight has {flights.max_stopovers} stopovers"
